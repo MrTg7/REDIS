@@ -17,6 +17,7 @@ public class Main {
           serverSocket.setReuseAddress(true);
           // Wait for connection from client.
           clientSocket = serverSocket.accept();
+          // Hardcode Pong responce
           clientSocket.getOutputStream().write("+PONG\r\n".getBytes());
 
         } catch (IOException e) {
