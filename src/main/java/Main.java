@@ -19,6 +19,11 @@ public class Main {
             while (true) {
                 // Wait for connection from client.
                 Socket clientSocket = serverSocket.accept();
+
+                try {
+                    java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
+                    java.io.OutputStream out = clientSocket.getOutputStream();
+                }
                 
                 // Hardcode Pong response
                 clientSocket.getOutputStream().write("+PONG\r\n".getBytes());
