@@ -20,6 +20,7 @@ public class Main {
                 // Wait for connection from client.
                 Socket clientSocket = serverSocket.accept();
 
+                // Eventually, wrap this block in a new Thread to handle concurrent clients
                 try {
                     java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
                     java.io.OutputStream out = clientSocket.getOutputStream();
