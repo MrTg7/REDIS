@@ -37,10 +37,21 @@ public class Main {
                             out.flush();
                         }
                     }
-                }
+                } catch (IOException e) {
+
+                    System.out.println("Client disconnected or error: " + e.getMessage());
+                    } finally {
+                        try {
+                            clientSocket.close();
+                        } catch (IOException e) {
+                            System.out.println("Error closing client socket: " + e.getMessage());
+                        }
+                    }
+                });
                 
-                // Close the client connection after responding
-                clientSocket.close();
+                // Start the thread so the main loop can go back to accepting new connections
+                clientThread.start();
+                
             }
 
         } catch (IOException e) {
