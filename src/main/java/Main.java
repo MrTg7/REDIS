@@ -9,6 +9,7 @@ public class Main {
         ServerSocket serverSocket = null;
         int port = 6379;
         
+        // try loop
         try {
             serverSocket = new ServerSocket(port);
             serverSocket.setReuseAddress(true);
