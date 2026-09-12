@@ -24,7 +24,9 @@ public class Main {
                 Socket clientSocket = serverSocket.accept();
 
                 Thread clientThread = new Thread(() -> {
+
                     try {
+
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         OutputStream out = clientSocket.getOutputStream();
 
@@ -61,11 +63,16 @@ public class Main {
                         }
 
                     } catch (IOException e) {
+
                         System.out.println("Client disconnected or error: " + e.getMessage());
+
                     } finally {
+
                         try {
                             clientSocket.close();
-                        } catch (IOException e) {
+                        }
+                        
+                        catch (IOException e) {
                             System.out.println("Error closing client socket: " + e.getMessage());
                         }
                     }
@@ -75,14 +82,20 @@ public class Main {
             }
 
         } catch (IOException e) {
+
             System.out.println("IOException: " + e.getMessage());
+
         } finally {
+
             try {
+
                 if (serverSocket != null) {
                     serverSocket.close();
                 }
+
             } catch (IOException e) {
                 System.out.println("IOException: " + e.getMessage());
+\
             }
         }
     }
