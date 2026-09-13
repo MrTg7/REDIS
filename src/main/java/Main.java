@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +17,9 @@ public class Main {
 
         ServerSocket serverSocket = null;
         int port = 6379;
+
+        // In-memory key-value store shared across all client threads
+        Map store = new ConcurrentHashMap<>();
 
         try {
             serverSocket = new ServerSocket(port);
@@ -57,6 +62,25 @@ public class Main {
                                     String message = commandTokens.get(1);
                                     String response = "$" + message.length() + "\r\n" + message + "\r\n";
                                     out.write(response.getBytes());
+                                    out.flush();
+                                } else if (command.equals("SET")) {
+                                    String key = commandTokens.get(1);
+                                    String value = commandTokens.get(2);
+                                    store.put(key, value);
+
+                                    out.write("+OK\r\n".getBytes());
+                                    out.flush();
+                                } else if (command.equals("GET")) {
+                                    String key = commandTokens.get(1);
+                                    String value = store.get(key);
+
+                                    if (value == null) {
+                                        // Null bulk string indicates the key was not found
+                                        out.write("$-1\r\n".getBytes());
+                                    } else {
+                                        String response = "$" + value.length() + "\r\n" + value + "\r\n";
+                                        out.write(response.getBytes());
+                                    }
                                     out.flush();
                                 }
                             }
