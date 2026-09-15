@@ -29,7 +29,6 @@ public class Main {
                 Socket clientSocket = serverSocket.accept();
 
                 Thread clientThread = new Thread(() -> {
-
                     try {
 
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
