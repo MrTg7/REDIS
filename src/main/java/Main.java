@@ -29,6 +29,7 @@ public class Main {
                 Socket clientSocket = serverSocket.accept();
 
                 Thread clientThread = new Thread(() -> {
+
                     try {
 
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -36,6 +37,7 @@ public class Main {
 
                         String inputLine;
                         while ((inputLine = in.readLine()) != null) {
+                            
                             // Redis commands sent from clients typically start with '*' (RESP Array)
                             if (inputLine.startsWith("*")) {
                                 int numElements = Integer.parseInt(inputLine.substring(1));
