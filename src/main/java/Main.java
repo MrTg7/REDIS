@@ -40,6 +40,7 @@ public class Main {
                             
                             // Redis commands sent from clients typically start with '*' (RESP Array)
                             if (inputLine.startsWith("*")) {
+                                
                                 int numElements = Integer.parseInt(inputLine.substring(1));
                                 List commandTokens = new ArrayList<>();
 
