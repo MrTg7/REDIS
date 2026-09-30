@@ -54,27 +54,35 @@ public class Main {
                                 if (commandTokens.isEmpty()) {
 
                                     continue;
-                                    
+
                                 }
 
                                 String command = commandTokens.get(0).toUpperCase();
 
                                 if (command.equals("PING")) {
+
                                     out.write("+PONG\r\n".getBytes());
                                     out.flush();
-                                } else if (command.equals("ECHO")) {
+
+                                } 
+                                
+                                else if (command.equals("ECHO")) {
                                     String message = commandTokens.get(1);
                                     String response = "$" + message.length() + "\r\n" + message + "\r\n";
                                     out.write(response.getBytes());
                                     out.flush();
-                                } else if (command.equals("SET")) {
+                                } 
+                                
+                                else if (command.equals("SET")) {
                                     String key = commandTokens.get(1);
                                     String value = commandTokens.get(2);
                                     store.put(key, value);
 
                                     out.write("+OK\r\n".getBytes());
                                     out.flush();
-                                } else if (command.equals("GET")) {
+                                } 
+                                
+                                else if (command.equals("GET")) {
                                     String key = commandTokens.get(1);
                                     String value = store.get(key);
 
