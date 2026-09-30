@@ -52,7 +52,9 @@ public class Main {
                                 }
 
                                 if (commandTokens.isEmpty()) {
+
                                     continue;
+                                    
                                 }
 
                                 String command = commandTokens.get(0).toUpperCase();
